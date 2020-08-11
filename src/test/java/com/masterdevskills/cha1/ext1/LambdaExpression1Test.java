@@ -22,6 +22,7 @@
 
 package com.masterdevskills.cha1.ext1;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class LambdaExpression1Test {
 
+	@DisplayName("Check If String Has More Than 5 Chars")
 	@Test
 	void checkMoreThan5Chars() {
 		assertTrue(LambdaExpression1.checkMoreThan5Chars("HelloWorld"));
@@ -39,12 +41,16 @@ class LambdaExpression1Test {
 		assertFalse(LambdaExpression1.checkMoreThan5Chars("helo"));
 	}
 
+	@DisplayName("Check If String Is Empty")
 	@Test
 	void isStringEmpty() {
 		assertTrue(LambdaExpression1.isStringEmpty("   "));
 		assertFalse(LambdaExpression1.isStringEmpty("hello"));
+		assertFalse(LambdaExpression1.isStringEmpty("   c"));
+		assertTrue(LambdaExpression1.isStringEmpty(""));
 	}
 
+	@DisplayName("Convert String To UpperCase")
 	@Test
 	void convertToUpperCase() {
 		assertEquals(LambdaExpression1.convertToUpperCase("hello"), "HELLO");
