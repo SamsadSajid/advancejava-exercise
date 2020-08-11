@@ -25,19 +25,22 @@
 package com.masterdevskills.cha1.ext1;
 
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class LambdaExpression1 {
 
 	/**
-	 * TODO 1:  Write a lambda expression using Predicate<String> to check if a string has more then 5 characters or not
+	 * Using lambda expression: `Predicate<String>` to check if a string has more then 5 characters or not
 	 *
 	 * @param value given value
 	 * @see Predicate<String>
 	 */
 	public static boolean checkMoreThan5Chars(String value) {
 
-		throw new RuntimeException("NotImplementedYet");
+		Predicate<String> stringLengthIsMoreThan5Chars = str -> str.length() > 5;
+
+		return stringLengthIsMoreThan5Chars.test(value);
 	}
 
 	/* TODO 2: Write a lambda expression using Predicate<String> to check if string is empty or not
@@ -45,7 +48,10 @@ public class LambdaExpression1 {
 	 * @see Predicate<String>
 	 */
 	public static boolean isStringEmpty(String value) {
-		throw new RuntimeException("NotImplementedYet");
+
+		Predicate<String> stringIsEmpty = str -> str.isEmpty() || str.replaceAll(" ", "").isEmpty();
+
+		return stringIsEmpty.test(value);
 	}
 
 	/**
@@ -55,6 +61,11 @@ public class LambdaExpression1 {
 	 * @see Predicate<String>
 	 */
 	public static String convertToUpperCase(String text) {
-		throw new RuntimeException("NotImplementedYet");
+
+		Function<String, String> upperCaseConverter = str -> str.toUpperCase();
+
+//		Function<String, String> upperCaseConverter = String::toUpperCase;
+
+		return upperCaseConverter.apply(text);
 	}
 }
