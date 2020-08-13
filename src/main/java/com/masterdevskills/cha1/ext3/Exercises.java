@@ -23,7 +23,9 @@
 package com.masterdevskills.cha1.ext3;
 
 
-import java.util.List;
+import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 /**
@@ -41,9 +43,9 @@ public class Exercises {
 	 * @see List#replaceAll(UnaryOperator)
 	 */
 	public static List<Integer> doubling(List<Integer> ints) {
-		throw new RuntimeException("NotYetImplemented");
-	}
 
+		return multiplierLambdaWorker(ints, integer -> integer * 2);
+	}
 	/**
 	 * TODO: given a list of string and a suffix, apply the suffix to all of them
 	 *
@@ -52,7 +54,8 @@ public class Exercises {
 	 * @see List#replaceAll(UnaryOperator)
 	 */
 	public static List<String> addSuffix(List<String> items, String suffix) {
-		throw new RuntimeException("NotYetImplemented");
+
+		return addSuffixLambdaWorker(items, suffix, (str1, str2) -> str1 + str2);
 	}
 
 	/***
@@ -61,7 +64,12 @@ public class Exercises {
 	 * @param people list of person
 	 * */
 	public static List<Person> sortItemByFirstNameOrderAscending(List<Person> people) {
-		throw new RuntimeException("NotYetImplemented");
+
+		Comparator<Person> firstNameComparator = (person1, person2) -> person1.getFirstName().compareToIgnoreCase(person2.getFirstName());
+
+		people.sort(firstNameComparator);
+
+		return people;
 	}
 
 	/**
@@ -70,7 +78,12 @@ public class Exercises {
 	 * @param people list of person
 	 */
 	public static List<Person> sortByLastNameOrderDescending(List<Person> people) {
-		throw new RuntimeException("NotYetImplemented");
+
+		Comparator<Person> lastNameComparator = (person1, person2) -> -(person1.getLastName().compareToIgnoreCase(person2.getLastName()));
+
+		people.sort(lastNameComparator);
+
+		return people;
 	}
 
 	/**
@@ -82,5 +95,26 @@ public class Exercises {
 	 */
 	public static List<Person> sortByFirstNameAndThenLastNameAndThenAge(List<Person> people) {
 		throw new RuntimeException("NotYetImplemented");
+	}
+
+	private static List<Integer> multiplierLambdaWorker(List<Integer> inputIntegerList, Function<Integer, Integer> multiplier) {
+
+		List<Integer> outputIntegerList = new ArrayList<>();
+
+		for (Integer integer: inputIntegerList)
+			outputIntegerList.add(multiplier.apply(integer));
+
+		return outputIntegerList;
+	}
+
+
+	private static List<String> addSuffixLambdaWorker (List<String> items, String suffix, BinaryOperator<String> lambdaExpression) {
+		List<String> answer = new ArrayList<>();
+
+		for (String item: items) {
+			answer.add(lambdaExpression.apply(item, suffix));
+		}
+
+		return answer;
 	}
 }
