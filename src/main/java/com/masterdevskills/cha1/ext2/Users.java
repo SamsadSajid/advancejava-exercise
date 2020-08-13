@@ -24,6 +24,8 @@ package com.masterdevskills.cha1.ext2;
 
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 
 /**
  * @author A N M Bazlur Rahman @bazlur_rahman
@@ -43,7 +45,8 @@ public class Users {
 	 * @see User#setStatus(Status)
 	 */
 	public static void activatedAll(List<User> users, Status status) {
-		throw new RuntimeException("NotImplemented");
+
+		users.forEach(user -> user.setStatus(status));
 	}
 
 	/**
@@ -58,6 +61,18 @@ public class Users {
 
 	public static String makeStringOfAllUsernames(List<User> users) {
 
-		throw new RuntimeException("NotImplemented");
+		return reduce(users, (u) -> u.getUsername(), (u1, u2) -> u1 + "," + u2);
+	}
+
+	private static String reduce (List<User> users, Function<User, String> mapper, BinaryOperator<String> binaryOperator) {
+
+		String ans = "";
+
+		for(User user : users) {
+			var mapped = mapper.apply(user);
+			ans = binaryOperator.apply(ans, mapped);
+		}
+
+		return ans.charAt(0) == ',' ? ans.replaceFirst(",", "") : ans;
 	}
 }
